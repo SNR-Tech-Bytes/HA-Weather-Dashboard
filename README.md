@@ -2,7 +2,7 @@
 
 A sections-view weather dashboard with active alert summary, animated radar, hourly forecast, live lightning tracking, and NWS alerts.
 
-![Alt text](Weather%20Dashboard%20Demo.jpeg)
+![Alt text](weather-dashboard-demo.jpeg)
 
 AI Disclosure: I had AI sanitize my YAMLs and write this readme. I have since tested this on my setup and it works but YMMV.
 
@@ -67,9 +67,11 @@ Placeholders to fill in before importing:
 | Placeholder | What it should point to |
 |---|---|
 | `sensor.YOUR_NWS_ALERTS_ENTITY` | Same NWS alerts sensor as the package and dashboard |
-| `conversation.YOUR_CONVERSATION_AGENT` | A conversation agent entity (can be a local LLM agent or any HA-supported conversation integration) that can process free-text prompts |
+| `conversation.YOUR_CONVERSATION_AGENT` | Optional. A conversation agent entity (local LLM or any HA-supported conversation integration) that can process free-text prompts |
 | `notify.YOUR_MOBILE_APP_NOTIFY_SERVICE` | Your `notify.mobile_app_*` service for the target device |
 | `/YOUR-DASHBOARD-PATH` | Where the push notification should deep-link (e.g. the weather dashboard view) |
+
+**No conversation agent? No problem.** If you don't have a local LLM or any conversation integration set up, you don't need to touch the `agent_id` field at all — the automation is hardened to fall back gracefully. If the conversation agent call fails or isn't configured, it skips the AI summary and just uses the raw NWS alert text (event, severity, headline, description, instructions) instead. The sensor still updates and critical notifications still fire — you just get the unsummarized alert text rather than a friendlier 2–3 sentence version.
 
 ## Setup order
 
@@ -82,4 +84,4 @@ Placeholders to fill in before importing:
 
 - Minimum HA version: any release supporting the Sections view (2024.9+).
 - The radar card's `carto_api_key` can be left blank, but tile loading may be rate-limited without one.
-- The alert summarization automation depends on a conversation agent capable of following the summarization prompt — a local LLM works well since these alerts can contain sensitive-ish info you may not want sent to a cloud service.
+- The alert summarization automation works with or without a conversation agent — with one, you get an AI-generated plain-language summary; without, it falls back to the raw alert text. A local LLM is worth it here specifically because these alerts can contain sensitive-ish info you may not want sent to a cloud service.

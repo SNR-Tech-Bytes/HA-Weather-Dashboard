@@ -1,5 +1,7 @@
 alias: Weather Alert for Home
-description: ''
+description: >-
+  If no conversation agent is set (agent_id left blank/removed), this skips
+  AI summarization and falls back to the raw alert text — see the README.
 triggers:
   - entity_id:
       - sensor.YOUR_NWS_ALERTS_ENTITY
@@ -21,7 +23,11 @@ actions:
         {{ trigger.to_state.attributes.Alerts
            | selectattr('NWSCode', 'in', ['HWW','HUW','SVR','TOR','TSW','WSW','EQW','EVI','RHW','SPW','AVW','VOW'])
            | list | count > 0 }}
+  # AI summarization (optional). continue_on_error means a missing/misconfigured
+  # agent won't stop the automation — it just falls through to the raw alert
+  # text below instead of a nicer summary.
   - action: conversation.process
+    continue_on_error: true
     data:
       text: >
         Summarize the following NWS alert(s) for a homeowner in 2-3 concise
@@ -31,7 +37,13 @@ actions:
       agent_id: conversation.YOUR_CONVERSATION_AGENT
     response_variable: ai_response
   - variables:
-      summary_text: '{{ ai_response.response.speech.plain.speech }}'
+      summary_text: >-
+        {% if ai_response is defined and ai_response.response is defined
+           and ai_response.response.speech is defined %}
+          {{ ai_response.response.speech.plain.speech }}
+        {% else %}
+          {{ alert_text }}
+        {% endif %}
   - event: weather_alert_summary_updated
     event_data:
       summary: '{{ summary_text }}'
