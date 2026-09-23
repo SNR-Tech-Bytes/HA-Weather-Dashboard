@@ -5,6 +5,8 @@ A sections-view weather dashboard with active alert summary, animated radar, hou
 
 ![Alt text](Weather%20Dashboard%20Demo.jpeg)
 
+AI Disclosure: I figured out how to put most of this together, however I had AI sanitize my YAMLs and write this readme. I have since tested this on my setup and it works but YMMV.
+
 ## Required HACS custom cards
 
 Install these via HACS → Frontend before importing:
@@ -14,6 +16,8 @@ Install these via HACS → Frontend before importing:
 - `blitzortung.org lightning detector` https://github.com/mrk-its/homeassistant-blitzortung
 - `weather-alerts-card` https://github.com/seevee/weather_alerts_card
 - `NWS-Alerts` https://github.com/finity69x2/nws_alerts
+
+  NOTE: I do not manage any of the above HACS plugins, if you have issues with those cards please post an issue ticket on the associated github!
 
 ## Required entities
 
