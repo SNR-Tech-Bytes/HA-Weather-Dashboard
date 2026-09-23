@@ -46,7 +46,7 @@ homeassistant:
   packages: !include_dir_named packages
 ```
 
-Then drop `weather-alert-package.yaml` into a `config/packages/` folder and restart HA (or reload Template Entities + Automations from Developer Tools → YAML).
+Then drop `weather-alert-package.yaml` into a `homeassistant/packages/` folder and restart HA (or reload Template Entities + Automations from Developer Tools → YAML).
 
 Placeholders to fill in before restarting:
 
