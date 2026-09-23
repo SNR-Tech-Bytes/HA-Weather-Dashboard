@@ -6,10 +6,11 @@ A sections-view weather dashboard with active alert summary, animated radar, hou
 
 Install these via HACS → Frontend before importing:
 
-- `weather-radar-card`
-- `blitzortung-lightning-card` (pairs with the Blitzortung Lightning Detector integration)
-- `weather-alerts-card`
-- 'nws-alerts' 
+- `weather-radar-card` https://github.com/jpettitt/weather-radar-card
+- `blitzortung-lightning-card` https://github.com/timmaurice/lovelace-blitzortung-lightning-card
+- `blitzortung.org lightning detector` https://github.com/mrk-its/homeassistant-blitzortung
+- `weather-alerts-card` https://github.com/seevee/weather_alerts_card
+- `NWS-Alerts` https://github.com/finity69x2/nws_alerts
 
 ## Required entities
 
