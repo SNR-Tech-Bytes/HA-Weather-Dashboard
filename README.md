@@ -28,7 +28,6 @@ Before importing, replace these placeholders in `weather-dashboard.yaml` with yo
 | `YOUR_CARTO_API_KEY` | A free CARTO API key (used by weather-radar-card for the basemap) |
 | `/YOUR-DASHBOARD-PATH` | Optional — only needed if you want the "Home" badge to link elsewhere |
 
-`zone.home` is a built-in HA entity and works for anyone without changes.
 
 ## Import
 
