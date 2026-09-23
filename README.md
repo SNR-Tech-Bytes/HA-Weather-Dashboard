@@ -4,7 +4,7 @@ A sections-view weather dashboard with active alert summary, animated radar, hou
 
 ![Alt text](Weather%20Dashboard%20Demo.jpeg)
 
-AI Disclosure: I had AI sanitize my YAMLs and write this readme. I have since tested this on my setup and it works but YMMV.
+AI Disclosure: I had AI sanitize and harden these YAMLs and write this readme. I have since tested this on my setup and it works but YMMV.
 
 ## Required HACS custom cards
 
