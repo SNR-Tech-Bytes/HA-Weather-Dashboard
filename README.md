@@ -2,7 +2,7 @@
 
 A sections-view weather dashboard with active alert summary, animated radar, hourly forecast, live lightning tracking, and NWS alerts.
 
-![Alt text](weather-dashboard-demo.jpeg)
+![Alt text](Weather%20Dashboard%20Demo.jpeg)
 
 AI Disclosure: I had AI sanitize my YAMLs and write this readme. I have since tested this on my setup and it works but YMMV.
 
