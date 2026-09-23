@@ -9,6 +9,7 @@ Install these via HACS → Frontend before importing:
 - `weather-radar-card`
 - `blitzortung-lightning-card` (pairs with the Blitzortung Lightning Detector integration)
 - `weather-alerts-card`
+- 'nws-alerts' 
 
 ## Required entities
 
