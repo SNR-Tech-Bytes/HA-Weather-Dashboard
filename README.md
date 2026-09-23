@@ -1,6 +1,7 @@
 # Home Assistant Weather Dashboard
 
 A sections-view weather dashboard with active alert summary, animated radar, hourly forecast, live lightning tracking, and NWS alerts.
+![Alt text](Weather Dashboard Demo.jpeg)
 
 ## Required HACS custom cards
 
