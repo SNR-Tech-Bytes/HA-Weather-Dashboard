@@ -63,3 +63,12 @@ actions:
                     name: default
                     critical: 1
                     volume: 1
+      default:
+      - action: notify.YOUR_MOBILE_APP_NOTIFY_SERVICE
+        data:
+          title: Weather Alert for Home
+          message: '{{ summary_text }}'
+          data:
+            url: /YOUR-DASHBOARD-PATH
+            push:
+              interruption-level: time-sensitive
