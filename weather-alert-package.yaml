@@ -7,7 +7,7 @@
 #   1. Enable packages in configuration.yaml (if not already):
 #        homeassistant:
 #          packages: !include_dir_named packages
-#   2. Save this file as config/packages/weather-alert-package.yaml
+#   2. Save this file as homeassistant/packages/weather-alert-package.yaml
 #      (or !include it directly under homeassistant: packages: as one entry)
 #   3. Fill in the placeholders below with your own entity IDs.
 #   4. Restart Home Assistant (or reload Template Entities + Automations
