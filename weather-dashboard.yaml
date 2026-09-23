@@ -1,0 +1,64 @@
+views:
+  - type: sections
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Alerts
+          - type: markdown
+            content: >-
+              {{ state_attr('sensor.YOUR_WEATHER_ALERT_SUMMARY', 'full_text') or 'No
+              active alert summary yet.' }}
+          - type: custom:weather-radar-card
+            height: 220px
+            wind_source: ndfd_wind
+            markers:
+              - entity: zone.home
+            data_source: NOAA
+            zoom_level: 9
+            carto_api_key: YOUR_CARTO_API_KEY
+            show_wildfires: true
+            show_alerts: true
+            alerts_min_severity: Moderate
+            alerts_radius_km: 50
+            wildfire_radius_km: 20
+            radar_opacity: 0.6
+            frame_stride_minutes: 10
+            show_range: false
+            extra_labels: false
+            show_scale: false
+            show_zoom: true
+            show_recenter: true
+            static_map: false
+            show_snow: true
+            animated_transitions: false
+            start_paused: false
+            past_minutes: 40
+      - type: grid
+        cards:
+          - type: heading
+            heading: Forecast
+          - type: weather-forecast
+            entity: weather.YOUR_WEATHER_ENTITY
+            forecast_type: hourly
+          - type: custom:blitzortung-lightning-card
+            distance_entity: sensor.YOUR_LIGHTNING_DISTANCE
+            counter_entity: sensor.YOUR_LIGHTNING_COUNTER
+            azimuth_entity: sensor.YOUR_LIGHTNING_AZIMUTH
+            period: 30m
+            grid_color: var(--primary-text-color)
+            strike_color: var(--error-color)
+            show_map: false
+            lightning_detection_radius: 30
+      - type: grid
+        cards:
+          - type: heading
+            heading: NWS Alerts
+          - type: custom:weather-alerts-card
+            entity: sensor.YOUR_NWS_ALERTS_ENTITY
+    badges:
+      - type: shortcut
+        tap_action:
+          action: navigate
+          navigation_path: /YOUR-DASHBOARD-PATH
+        text: Home
