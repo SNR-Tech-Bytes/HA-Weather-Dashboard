@@ -34,6 +34,8 @@ views:
             animated_transitions: false
             start_paused: false
             past_minutes: 40
+            show_lightning: true
+            lightning_max_age_minutes: 10
       - type: grid
         cards:
           - type: heading
