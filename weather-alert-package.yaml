@@ -1,19 +1,17 @@
-# Home Assistant package: Weather Alert Summary
-#
-# Bundles the "alert summary" template sensor and the "Weather Alert for Home"
-# automation into a single file.
+# Home Assistant package: Weather Alert Summary sensor
 #
 # Install:
 #   1. Enable packages in configuration.yaml (if not already):
 #        homeassistant:
 #          packages: !include_dir_named packages
 #   2. Save this file as homeassistant/packages/weather-alert-package.yaml
-#      (or !include it directly under homeassistant: packages: as one entry)
-#   3. Fill in the placeholders below with your own entity IDs.
-#   4. Restart Home Assistant (or reload Template Entities + Automations
+#   3. Fill in the placeholder below with your own NWS alerts entity.
+#   4. Restart Home Assistant (full restart only needed the first time you
+#      add the packages: line above — after that, reload Template Entities
 #      from Developer Tools → YAML).
 #
-# After setup, use this sensor's entity in the dashboard's markdown card:
+# After setup, use this sensor's entity in the dashboard's markdown card
+# and in the weather-alert-automation.yaml automation:
 #   sensor.weather_alert_summary
 
 template:
@@ -34,59 +32,3 @@ template:
             {% else %}
               No active alerts.
             {% endif %}
-
-automation:
-  - alias: "Weather Alert for Home"
-    description: ""
-    triggers:
-      - entity_id:
-          - sensor.YOUR_NWS_ALERTS_ENTITY
-        trigger: state
-    conditions:
-      - condition: template
-        value_template: >-
-          {{ trigger.to_state.state | int(0) > trigger.from_state.state | int(0) }}
-    actions:
-      - variables:
-          alert_text: >
-            {% set ns = namespace(text="") %} {% for alert in
-            trigger.to_state.attributes.Alerts %} {% set ns.text = ns.text ~ "Event:
-            " ~ alert.Event ~
-               "\nSeverity: " ~ alert.Severity ~
-               "\nHeadline: " ~ alert.Headline ~ "\nDescription: " ~ alert.Description ~
-               "\nInstructions: " ~ (alert.Instruction or "None") ~ "\n\n" %}
-            {% endfor %} {{ ns.text }}
-          is_critical: |-
-            {{ trigger.to_state.attributes.Alerts
-               | selectattr('NWSCode', 'in', ['HWW','HUW','SVR','TOR','TSW','WSW','EQW','EVI','RHW','SPW','AVW','VOW'])
-               | list | count > 0 }}
-      - action: conversation.process
-        data:
-          text: >
-            Summarize the following NWS alert(s) for a homeowner in 2-3 concise
-            sentences. Prioritize any immediate safety actions.
-
-            {{ alert_text }}
-          agent_id: conversation.YOUR_CONVERSATION_AGENT
-        response_variable: ai_response
-      - variables:
-          summary_text: "{{ ai_response.response.speech.plain.speech }}"
-      - event: weather_alert_summary_updated
-        event_data:
-          summary: "{{ summary_text }}"
-      - choose:
-          - conditions:
-              - condition: template
-                value_template: "{{ is_critical }}"
-            sequence:
-              - action: notify.YOUR_MOBILE_APP_NOTIFY_SERVICE
-                data:
-                  title: 🚨 CRITICAL Weather Alert for Home
-                  message: "{{ summary_text }}"
-                  data:
-                    url: /YOUR-DASHBOARD-PATH
-                    push:
-                      sound:
-                        name: default
-                        critical: 1
-                        volume: 1
